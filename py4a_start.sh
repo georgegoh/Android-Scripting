@@ -82,7 +82,7 @@ setup_remote_control_environment()
 {
   echo "Forwarding to SL4A client requests to port: ${FORWARDED_PORT}"
   ${ADB} forward tcp:${FORWARDED_PORT} tcp:${SERVER_PORT}
-  AP_PORT=${FORWARDED_PORT}
+  export AP_PORT=${FORWARDED_PORT}
 }
 
 
