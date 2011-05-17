@@ -57,7 +57,7 @@ get_private_server_port()
   # info, the code simply assumes that the SL4A server on the first
   # port that listens on localhost.
   # I'd welcome any suggestions for improvement here.
-  SERVER_PORT=`${ADB} shell netstat | grep "127.0.0.1.*LISTEN" | awk -F "[ :]*" '{ print $6 }'`
+  SERVER_PORT=`${ADB} shell netstat | grep "127.0.0.1.*LISTEN" | awk -F "[ :]*" '{ print $6 }' | head -n 1`
   retries=0
   while test -z "$SERVER_PORT" && (( retries < $MAX_SERVER_RETRIES))
   do
@@ -65,7 +65,7 @@ get_private_server_port()
     sleep ${SLEEP_TIME_BETWEEN_RETRIES}
     (( retries += 1 ))
     echo "Retry ${retries} of ${MAX_SERVER_RETRIES}."
-    SERVER_PORT=`${ADB} shell netstat | grep "127.0.0.1.*LISTEN" | awk -F "[ :]*" '{ print $6 }'`
+    SERVER_PORT=`${ADB} shell netstat | grep "127.0.0.1.*LISTEN" | awk -F "[ :]*" '{ print $6 }' | head -n 1`
   done
 
   if test -z "$SERVER_PORT"
